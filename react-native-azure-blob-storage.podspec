@@ -21,6 +21,6 @@ Pod::Spec.new do |s|
 
   s.dependency "React"
   # ...
-  # s.dependency "..."
+  s.dependency "AZSClient"
 end
 
