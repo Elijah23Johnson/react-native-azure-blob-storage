@@ -26,8 +26,8 @@
 
 //   'use strict';
 
-//   const fs = require('fs');
-//   const path = require('path');
+  const fs = require('fs');
+  const path = require('path');
 
 //   /// Delete all files and directories for the given path
 //   const removeFileDirectoryRecursively = fileDirPath => {
@@ -90,22 +90,22 @@
 //     });
 //   };
 
-//   // Main start sweeping process
-//   (() => {
-//     // Read out dir of example project
-//     const exampleDir = process.cwd();
+  // Main start sweeping process
+  (() => {
+    // Read out dir of example project
+    const exampleDir = process.cwd();
 
-//     console.log(`Starting postinstall cleanup for ${exampleDir}`);
+    console.log(`Starting postinstall cleanup for ${exampleDir}`);
 
-//     // Resolve the React Native library's path within the example's node_modules directory
-//     const libraryNodeModulesPath = process.argv.length > 2
-//       ? path.resolve(exampleDir, process.argv[2])
-//       : path.resolve(exampleDir, 'node_modules', require('../package.json').name);
+    // Resolve the React Native library's path within the example's node_modules directory
+    const libraryNodeModulesPath = process.argv.length > 2
+      ? path.resolve(exampleDir, process.argv[2])
+      : path.resolve(exampleDir, 'node_modules', require('../package.json').name);
 
-//     console.log(`Removing unwanted artifacts for ${libraryNodeModulesPath}`);
+    console.log(`Removing unwanted artifacts for ${libraryNodeModulesPath}`);
 
-//     removeLibraryNodeModulesPath(libraryNodeModulesPath);
+    // removeLibraryNodeModulesPath(libraryNodeModulesPath);
 
-//     const npmIgnorePath = path.resolve(__dirname, '../.npmignore');
-//     removeLibraryNpmIgnorePaths(npmIgnorePath, libraryNodeModulesPath);
-//   })();
+    // const npmIgnorePath = path.resolve(__dirname, '../.npmignore');
+    // removeLibraryNpmIgnorePaths(npmIgnorePath, libraryNodeModulesPath);
+  })();
