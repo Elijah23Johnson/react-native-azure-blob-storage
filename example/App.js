@@ -12,7 +12,7 @@ import React, { Component } from 'react';
 import { Platform, StyleSheet, Text, View } from 'react-native';
 import EAzureBlobStorage from 'react-native-azure-blob-storage';
 
-export default class App extends Component<{}> {
+export default class App extends Component {
   render() {
     return (
       <View style={styles.container}>
