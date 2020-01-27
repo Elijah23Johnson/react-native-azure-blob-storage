@@ -10,9 +10,13 @@
 
 import React, { Component } from 'react';
 import { Platform, StyleSheet, Text, View } from 'react-native';
-import EAzureBlobStorage from 'react-native-azure-blob-storage';
+import EAzureBlobStorage, { EAzureBlobStorageImage } from 'react-native-azure-blob-storage';
 
-export default class App extends Component<{}> {
+export default class App extends Component {
+  async componentDidMount(){
+    var name = await EAzureBlobStorageImage.uploadFile("Naming Some Stuff")
+    console.log("This is really cool stuff", name)
+  }
   render() {
     return (
       <View style={styles.container}>
