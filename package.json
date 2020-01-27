@@ -1,8 +1,8 @@
 {
   "name": "react-native-azure-blob-storage",
   "title": "React Native Azure Blob Storage",
-  "version": "1.0.3",
-  "description": "TODO",
+  "version": "1.0.4",
+  "description": "Performing operations on content in Azure Blob Storage",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

@@ -1,5 +1,6 @@
 package com.azureblobstorage;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -13,7 +14,9 @@ import com.facebook.react.bridge.JavaScriptModule;
 public class EAzureBlobStoragePackage implements ReactPackage {
     @Override
     public List<NativeModule> createNativeModules(ReactApplicationContext reactContext) {
-        return Collections.emptyList();
+            List<NativeModule> modules = new ArrayList<>();
+            modules.add(new EAzureBlobStorageImage(reactContext));
+        return modules;
     }
 
     @Override

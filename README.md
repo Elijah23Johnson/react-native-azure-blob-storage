@@ -10,8 +10,11 @@
 
 ## Usage
 ```javascript
-import EAzureBlobStorage from 'react-native-azure-blob-storage';
+import EAzureBlobStorage, { EAzureBlobStorageImage } from 'react-native-azure-blob-storage';
 
-// TODO: What to do with the module?
-EAzureBlobStorage;
+  async componentDidMount(){
+    var name = await EAzureBlobStorageImage.uploadFile("Naming Some Stuff")
+    console.log("This is really cool stuff", name)
+  }
+
 ```

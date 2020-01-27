@@ -1,4 +1,3 @@
-// CalendarManager.m
 #import "EAzureBlobStorageImage.h"
 
 @implementation EAzureBlobStorageImage
@@ -9,15 +8,15 @@ RCT_EXPORT_MODULE();
 // This would name the module AwesomeCalendarManager instead
 // RCT_EXPORT_MODULE(AwesomeCalendarManager);
 
-RCT_EXPORT_METHOD(uploadFile:(NSString *)name,
+RCT_EXPORT_METHOD(uploadFile:(NSString *)name
                  findEventsWithResolver:(RCTPromiseResolveBlock)resolve
                  rejecter:(RCTPromiseRejectBlock)reject)
 {
-  NSArray *events = ["Testing"]
+    NSString *events = name;
   if (events) {
     resolve(events);
   } else {
-    NSError *error = "Error no file found"
+      NSError *error;
     reject(@"no_events", @"There were no events", error);
   }
 }
