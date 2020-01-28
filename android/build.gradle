@@ -73,6 +73,7 @@ repositories {
 dependencies {
     //noinspection GradleDynamicVersion
     implementation 'com.facebook.react:react-native:+'  // From node_modules
+    implementation 'com.microsoft.azure.android:azure-storage-android:0.8.0@aar'  // From node_modules
 }
 
 def configureReactNativePom(def pom) {

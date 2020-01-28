@@ -9,21 +9,58 @@
  */
 
 import React, { Component } from 'react';
-import { Platform, StyleSheet, Text, View } from 'react-native';
-import EAzureBlobStorage, { EAzureBlobStorageImage } from 'react-native-azure-blob-storage';
+import { Button, StyleSheet, ScrollView, View, Image, TouchableOpacity } from 'react-native';
+import { EAzureBlobStorageImage } from 'react-native-azure-blob-storage';
+import CameraRoll from "@react-native-community/cameraroll";
 
 export default class App extends Component {
-  async componentDidMount(){
-    var name = await EAzureBlobStorageImage.uploadFile("Naming Some Stuff")
-    console.log("This is really cool stuff", name)
+  state = {
+    photos: []
   }
+  async componentDidMount() {
+    EAzureBlobStorageImage.configure(
+      "socialmediasurvival",
+      "YFXtZKoNglVefAd1eMVE4rJOBSdEHg5FSNDNhFXFBQF4pRuG5l24Rml0lZnQBMMqgvaI9m3/e5WQ/AZzkTgWTA==",
+      "imagesV278"
+    );
+  }
+  _handleButtonPress = () => {
+    CameraRoll.getPhotos({
+      first: 20,
+      assetType: 'Photos',
+    })
+      .then(r => {
+        this.setState({ photos: r.edges });
+      })
+      .catch((err) => {
+        console.log("Errror", err)
+      });
+  };
   render() {
     return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>☆EAzureBlobStorage example☆</Text>
-        <Text style={styles.instructions}>STATUS: loaded</Text>
-        <Text style={styles.welcome}>☆☆☆</Text>
-        <EAzureBlobStorage />
+      <View>
+        <Button title="Load Images" onPress={this._handleButtonPress} />
+        <ScrollView>
+          {this.state.photos.map((p, i) => {
+            return (
+              <TouchableOpacity
+                onPress={async () => {
+                  var name = await EAzureBlobStorageImage.uploadFile(p.node.image.uri)
+                  console.log("Container File Name", name)
+                }}
+              >
+                <Image
+                  key={i}
+                  style={{
+                    width: 300,
+                    height: 100,
+                  }}
+                  source={{ uri: p.node.image.uri }}
+                />
+              </TouchableOpacity>
+            );
+          })}
+        </ScrollView>
       </View>
     );
   }
