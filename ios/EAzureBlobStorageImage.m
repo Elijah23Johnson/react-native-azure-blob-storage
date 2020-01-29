@@ -1,10 +1,10 @@
 #import "EAzureBlobStorageImage.h"
 #import <AZSClient/AZSClient.h>
 
-NSString *ACCOUNT_NAME = @"account_name" 
-NSString *ACCOUNT_KEY = @"account_key" 
-NSString *CONTAINER_NAME = @"container_name" 
-NSString *CONNECTION_STRING = [NSString stringWithFormat:@"DefaultEndpointsProtocol=https; AccountName= %@; AccountKey= %@",ACCOUNT_NAME,ACCOUNT_KEY];
+NSString *ACCOUNT_NAME = @"account_name";
+NSString *ACCOUNT_KEY = @"account_key";
+NSString *CONTAINER_NAME = @"container_name";
+NSString *CONNECTION_STRING = @"";
 
 @implementation EAzureBlobStorageImage
 
@@ -18,37 +18,60 @@ RCT_EXPORT_METHOD(uploadFile:(NSString *)name
                  findEventsWithResolver:(RCTPromiseResolveBlock)resolve
                  rejecter:(RCTPromiseRejectBlock)reject)
 {
-    AZSCloudStorageAccount *account = [AZSCloudStorageAccount accountFromConnectionString: CONNECTION_STRING];
-    AZSCloudBlobClient *blobClient = [account getBlobClient];
-    NSString *containerName = [CONTAINER_NAME lowercaseString];
-    AZSCloudBlobContainer *blobContainer = [blobClient containerReferenceFromName:containerName];
-    
+    [self uploadBlobToContainer: name rejecter:reject resolver:resolve];
+}
 
-    let blob = blobContainer.getBlockReference(forName: CONTAINER_NAME);
-    NSString *nm = name ?? "";
-    if(!nn.isEmpty){
-    blob.upload(fromFile: nm,  completionHandler: { (error: Error?) -> Void in
-                        if (error) {
-                           reject(@"no_events", @"There was an error", error);
-                        }else{
-                           resolve(@"Success");
-                        }
-                    })
-    }else{
-      NSError *error;
-      reject(@"no_events", @"File name cannot be empty.", error);
+-(NSString *)genRandStringLength:(int)len {
+    static NSString *letters = @"abcdefghijklmnopqrstuvwxyz";
+    NSMutableString *randomString = [NSMutableString stringWithCapacity: len];
+    for (int i=0; i<len; i++) {
+        [randomString appendFormat: @"%C", [letters characterAtIndex: arc4random() % [letters length]]];
+    }
+    return randomString;
+}
+
+-(void)uploadBlobToContainer:(NSString *)file rejecter:(RCTPromiseRejectBlock)reject resolver:(RCTPromiseResolveBlock)resolve{
+    NSError *accountCreationError;
+
+    // Create a storage account object from a connection string.
+    AZSCloudStorageAccount *account = [AZSCloudStorageAccount accountFromConnectionString:CONNECTION_STRING error:&accountCreationError];
+
+    if(accountCreationError){
+        NSLog(@"Error in creating account.");
     }
 
+    // Create a blob service client object.
+    AZSCloudBlobClient *blobClient = [account getBlobClient];
+
+    // Create a local container object.
+    AZSCloudBlobContainer *blobContainer = [blobClient containerReferenceFromName:CONTAINER_NAME];
+    [blobContainer createContainerIfNotExistsWithAccessType:AZSContainerPublicAccessTypeContainer requestOptions:nil operationContext:nil completionHandler:^(NSError *error, BOOL exists)
+        {
+            if (error){
+                reject(@"no_event",@"Error in creating container.",error);
+            }
+            else{
+                // Create a local blob object
+                AZSCloudBlockBlob *blockBlob = [blobContainer blockBlobReferenceFromName:[self genRandStringLength: 10]];
+                blockBlob.properties.contentType = @"image/png";
+                [blockBlob uploadFromFileWithPath:file  completionHandler:^(NSError * error) {
+                    if (error){
+                        reject(@"no_event",[NSString stringWithFormat: @"Error in creating blob. %@",file],error);
+                    }
+                }];
+            }
+        }];
 }
 
 
 RCT_EXPORT_METHOD(configure:(NSString *)account_name
-                 key:(NSString)account_key
-                 container:(NSString)conatiner_name)
+                 key:(NSString *)account_key
+                 container:(NSString *)conatiner_name)
 {
-   ACCOUNT_NAME = account_name;
-   ACCOUNT_KEY = account_key;
-   CONTAINER_NAME = conatiner_name;
+    ACCOUNT_NAME = account_name;
+    ACCOUNT_KEY = account_key;
+    CONTAINER_NAME = [conatiner_name lowercaseString];
+    CONNECTION_STRING = [NSString stringWithFormat:@"DefaultEndpointsProtocol=https;AccountName=%@;AccountKey=%@",ACCOUNT_NAME,ACCOUNT_KEY];
 }
 
 @end

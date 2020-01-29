@@ -9,7 +9,7 @@
  */
 
 import React, { Component } from 'react';
-import { Button, StyleSheet, ScrollView, View, Image, TouchableOpacity } from 'react-native';
+import { Button, StyleSheet, ScrollView, View, Image, TouchableOpacity,Platform } from 'react-native';
 import { EAzureBlobStorageImage } from 'react-native-azure-blob-storage';
 import CameraRoll from "@react-native-community/cameraroll";
 
@@ -19,8 +19,8 @@ export default class App extends Component {
   }
   async componentDidMount() {
     EAzureBlobStorageImage.configure(
-      "socialmediasurvival",
-      "YFXtZKoNglVefAd1eMVE4rJOBSdEHg5FSNDNhFXFBQF4pRuG5l24Rml0lZnQBMMqgvaI9m3/e5WQ/AZzkTgWTA==",
+      "ACCOUNT_NAME",
+      "SERVER_KEY",
       "imagesV278"
     );
   }
@@ -42,11 +42,31 @@ export default class App extends Component {
         <Button title="Load Images" onPress={this._handleButtonPress} />
         <ScrollView>
           {this.state.photos.map((p, i) => {
+            console.log(p.node)
             return (
               <TouchableOpacity
                 onPress={async () => {
-                  var name = await EAzureBlobStorageImage.uploadFile(p.node.image.uri)
-                  console.log("Container File Name", name)
+                  try{
+                    if(Platform.OS.toLowerCase() == "ios"){
+                      CameraRoll.getSelectedPhoto(p.node.image.uri)
+                      .then(r => {
+                        console.log("Testing ",r.node);
+                        ///absolute filepath needed for ios
+                        var name = await EAzureBlobStorageImage.uploadFile(r.node.image.filepath)
+                      })
+                      .catch((err) => {
+                        console.log(err);
+                      });
+                    
+                    }else{
+                      var name = await EAzureBlobStorageImage.uploadFile(p.node.image.uri)
+                    }
+                    
+                    console.log("Container File Name", name)
+                  }catch(err){
+                    console.log("Container File Name Error", err)
+                  }
+          
                 }}
               >
                 <Image

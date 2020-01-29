@@ -18,6 +18,7 @@
 		2DCD954D1E0B4F2C00145EB5 /* exampleTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* exampleTests.m */; };
 		3AE6C68336E76F315182CF4E /* libPods-exampleTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 091AE0447C731D1759B185F5 /* libPods-exampleTests.a */; };
 		55B2DFEED5A48E37B51CE7D8 /* libPods-example-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 74A88160F53596D40EE83D7F /* libPods-example-tvOS.a */; };
+		C42F9C8E23E1442200A86117 /* libRNCCameraRoll.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C42F9C8D23E143F700A86117 /* libRNCCameraRoll.a */; };
 		D5202585CCD854E360FB4906 /* libPods-example.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3694555F30B522DD4B7FF186 /* libPods-example.a */; };
 		FA121807BA2D6038B859701B /* libPods-example-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 08730831F2D756884AB9764A /* libPods-example-tvOSTests.a */; };
 /* End PBXBuildFile section */
@@ -36,6 +37,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = 2D02E47A1E0B4A5D006451C7;
 			remoteInfo = "example-tvOS";
+		};
+		C42F9C8C23E143F700A86117 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C42F9C8823E143F700A86117 /* RNCCameraRoll.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 58B5115D1A9E6B3D00147676;
+			remoteInfo = RNCCameraRoll;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -65,6 +73,7 @@
 		ABACD9C1F7C915BB4B1A8F31 /* Pods-example-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-example-tvOSTests.release.xcconfig"; path = "Target Support Files/Pods-example-tvOSTests/Pods-example-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
 		ACCBFE4FCE27111399793286 /* Pods-example-tvOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-example-tvOSTests.debug.xcconfig"; path = "Target Support Files/Pods-example-tvOSTests/Pods-example-tvOSTests.debug.xcconfig"; sourceTree = "<group>"; };
 		C1AE31E2738CC6B2F5B4C150 /* Pods-example-tvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-example-tvOS.debug.xcconfig"; path = "Target Support Files/Pods-example-tvOS/Pods-example-tvOS.debug.xcconfig"; sourceTree = "<group>"; };
+		C42F9C8823E143F700A86117 /* RNCCameraRoll.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNCCameraRoll.xcodeproj; path = "../node_modules/@react-native-community/cameraroll/ios/RNCCameraRoll.xcodeproj"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		ED2971642150620600B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS12.0.sdk/System/Library/Frameworks/JavaScriptCore.framework; sourceTree = DEVELOPER_DIR; };
 /* End PBXFileReference section */
@@ -98,6 +107,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C42F9C8E23E1442200A86117 /* libRNCCameraRoll.a in Frameworks */,
 				FA121807BA2D6038B859701B /* libPods-example-tvOSTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -167,6 +177,7 @@
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				C42F9C8823E143F700A86117 /* RNCCameraRoll.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -193,6 +204,14 @@
 				00E356EE1AD99517003FC87E /* exampleTests.xctest */,
 				2D02E47B1E0B4A5D006451C7 /* example-tvOS.app */,
 				2D02E4901E0B4A5D006451C7 /* example-tvOSTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		C42F9C8923E143F700A86117 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				C42F9C8D23E143F700A86117 /* libRNCCameraRoll.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -320,6 +339,12 @@
 			mainGroup = 83CBB9F61A601CBA00E9B192;
 			productRefGroup = 83CBBA001A601CBA00E9B192 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = C42F9C8923E143F700A86117 /* Products */;
+					ProjectRef = C42F9C8823E143F700A86117 /* RNCCameraRoll.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				13B07F861A680F5B00A75B9A /* example */,
@@ -329,6 +354,16 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		C42F9C8D23E143F700A86117 /* libRNCCameraRoll.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRNCCameraRoll.a;
+			remoteRef = C42F9C8C23E143F700A86117 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		00E356EC1AD99517003FC87E /* Resources */ = {
