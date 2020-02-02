@@ -52,11 +52,14 @@ RCT_EXPORT_METHOD(uploadFile:(NSString *)name
             }
             else{
                 // Create a local blob object
-                AZSCloudBlockBlob *blockBlob = [blobContainer blockBlobReferenceFromName:[self genRandStringLength: 10]];
+                NSString *fileName = [self genRandStringLength: 10];
+                AZSCloudBlockBlob *blockBlob = [blobContainer blockBlobReferenceFromName:fileName];
                 blockBlob.properties.contentType = @"image/png";
                 [blockBlob uploadFromFileWithPath:file  completionHandler:^(NSError * error) {
                     if (error){
                         reject(@"no_event",[NSString stringWithFormat: @"Error in creating blob. %@",file],error);
+                    }else{
+                        resolve(fileName)
                     }
                 }];
             }

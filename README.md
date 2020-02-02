@@ -69,3 +69,16 @@ import CameraRoll from "@react-native-community/cameraroll";
 }
 
 ```
+## Example Usage IOS
+```
+Ios requires a relative path
+EAzureBlobStorageImage.uploadFile('/private/var/mobile/Containers/Data/Application/F59ABE10-8F33-4E96-97FA-6D186C91E45A/tmp/086B8A32-673A-4198-973F-DB3B3F114448-2024-00000E06291EB53C/IMG_0025.PNG'')
+
+```
+## Example Usage Android
+```
+Android requires an absolute path
+EAzureBlobStorageImage.uploadFile('file:///private/var/mobile/Containers/Data/Application/F59ABE10-8F33-4E96-97FA-6D186C91E45A/tmp/086B8A32-673A-4198-973F-DB3B3F114448-2024-00000E06291EB53C/IMG_0025.PNG'')
+
+```
+
