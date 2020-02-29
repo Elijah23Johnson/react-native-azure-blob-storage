@@ -1,6 +1,5 @@
 
 package com.azureblobstorage;
-import androidx.annotation.NonNull;
 
 import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.ReactApplicationContext;
@@ -10,6 +9,7 @@ import com.facebook.react.bridge.ReactMethod;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Handler;
+import android.support.annotation.NonNull;
 import android.widget.Toast;
 
 import java.io.InputStream;
@@ -37,7 +37,8 @@ public class EAzureBlobStorageImage extends ReactContextBaseJavaModule{
     @ReactMethod
     public void uploadFile(String name, final Promise promise){
         try {
-            final InputStream imageStream = ctx.getContentResolver().openInputStream(Uri.parse(name));
+            String file = name.indexOf("file://") > -1 ? name : "file://"+ name;
+            final InputStream imageStream = ctx.getContentResolver().openInputStream(Uri.parse(file));
             final int imageLength = imageStream.available();
 
             final Handler handler = new Handler();
