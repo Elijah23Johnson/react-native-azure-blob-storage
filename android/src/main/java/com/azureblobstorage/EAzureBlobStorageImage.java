@@ -1,5 +1,6 @@
 
 package com.azureblobstorage;
+import androidx.annotation.NonNull;
 
 import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.ReactApplicationContext;
@@ -9,7 +10,6 @@ import com.facebook.react.bridge.ReactMethod;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Handler;
-import android.support.annotation.NonNull;
 import android.widget.Toast;
 
 import java.io.InputStream;
