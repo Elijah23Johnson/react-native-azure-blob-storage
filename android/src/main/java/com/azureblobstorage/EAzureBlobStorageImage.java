@@ -17,7 +17,7 @@ import java.io.InputStream;
 public class EAzureBlobStorageImage extends ReactContextBaseJavaModule{
     private static final String E_LAYOUT_ERROR = "E_LAYOUT_ERROR";
     private static final String MODULE_NAME = "EAzureBlobStorageImage";
-    
+
     public static String ACCOUNT_NAME = "";
     public static String ACCOUNT_KEY = "";
     public static String CONTAINER_NAME = "";
@@ -37,7 +37,7 @@ public class EAzureBlobStorageImage extends ReactContextBaseJavaModule{
     @ReactMethod
     public void uploadFile(String name, final Promise promise){
         try {
-            String file = name.indexOf("file://") > -1 ? name : "file://"+ name;
+            String file = name.contains("file://") ? name : "file://".concat(name);
             final InputStream imageStream = ctx.getContentResolver().openInputStream(Uri.parse(file));
             final int imageLength = imageStream.available();
 
@@ -53,7 +53,7 @@ public class EAzureBlobStorageImage extends ReactContextBaseJavaModule{
                         handler.post(new Runnable() {
 
                             public void run() {
-                                Toast.makeText(ctx, "Image Uploaded Successfully. Name = " + imageName, Toast.LENGTH_SHORT).show();
+                                Toast.makeText(ctx, "Image Uploaded Successfully...", Toast.LENGTH_SHORT).show();
                                 promise.resolve(imageName);
                             }
                         });
@@ -72,6 +72,7 @@ public class EAzureBlobStorageImage extends ReactContextBaseJavaModule{
         }
         catch(Exception ex) {
             Toast.makeText(ctx, ex.getMessage(), Toast.LENGTH_SHORT).show();
+             promise.reject(E_LAYOUT_ERROR, ex);
         }
     }
 

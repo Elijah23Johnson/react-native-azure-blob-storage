@@ -71,7 +71,7 @@ import CameraRoll from "@react-native-community/cameraroll";
 ```
 ## Example
 ```
-Ios requires a relative path
+Ios requires a relative path Android Will work with either 
 EAzureBlobStorageImage.uploadFile('/Route To Image.PNG'')
 
 ```
