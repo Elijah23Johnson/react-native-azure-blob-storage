@@ -59,7 +59,7 @@ RCT_EXPORT_METHOD(uploadFile:(NSString *)name
                     if (error){
                         reject(@"no_event",[NSString stringWithFormat: @"Error in creating blob. %@",file],error);
                     }else{
-                        resolve(fileName)
+                        resolve(fileName);
                     }
                 }];
             }
