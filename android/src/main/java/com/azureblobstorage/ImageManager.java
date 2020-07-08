@@ -42,9 +42,9 @@ public class ImageManager {
     and https://docs.microsoft.com/en-us/azure/storage/common/storage-dotnet-shared-access-signature-part-1 
     */
 
-    public static String ACCOUNT_NAME = EAzureBlobStorageImage.ACCOUNT_NAME;
-    public static String ACCOUNT_KEY = EAzureBlobStorageImage.ACCOUNT_KEY;
-    public static String CONTAINER_NAME = EAzureBlobStorageImage.CONTAINER_NAME;
+    public static String ACCOUNT_NAME = EAzureBlobStorageFile.ACCOUNT_NAME;
+    public static String ACCOUNT_KEY = EAzureBlobStorageFile.ACCOUNT_KEY;
+    public static String CONTAINER_NAME = EAzureBlobStorageFile.CONTAINER_NAME;
     public static final String storageConnectionString = "DefaultEndpointsProtocol=https;"
             + "AccountName="+ACCOUNT_NAME+";"
             + "AccountKey="+ACCOUNT_KEY+"";
@@ -65,19 +65,18 @@ public class ImageManager {
         return container;
     }
 
-    public static String UploadImage(InputStream image, int imageLength) throws Exception {
+    public static String UploadImage(InputStream image, int imageLength, String fileName, String contentType) throws Exception {
 
         CloudBlobContainer container = getContainer();
-
         container.createIfNotExists();
 
         BlobContainerPermissions permissions = container.downloadPermissions();
         permissions.setPublicAccess(BlobContainerPublicAccessType.CONTAINER);
         container.uploadPermissions(permissions);
 
-        String imageName = randomString(10);
+        String imageName = fileName; //randomString(10);
         CloudBlockBlob imageBlob = container.getBlockBlobReference(imageName);
-        imageBlob.getProperties().setContentType("image/png");
+        imageBlob.getProperties().setContentType(contentType);
         imageBlob.upload(image, imageLength);
 
         return imageName;
