@@ -1,10 +1,10 @@
 import { requireNativeComponent, NativeModules } from 'react-native';
 
 const EAzureBlobStorage = requireNativeComponent('EAzureBlobStorage', null);
-const EAzureBlobStorageImage = NativeModules.EAzureBlobStorageImage
+const EAzureBlobStorageFile = NativeModules.EAzureBlobStorageFile
 
 export { 
-    EAzureBlobStorageImage 
+    EAzureBlobStorageFile 
 };
 
 export default EAzureBlobStorage;
