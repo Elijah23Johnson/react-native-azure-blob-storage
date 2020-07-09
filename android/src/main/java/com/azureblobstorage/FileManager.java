@@ -31,7 +31,7 @@ import java.security.SecureRandom;
 import java.util.LinkedList;
 import java.util.List;
 
-public class ImageManager {
+public class FileManager {
     /*
     **Only use Shared Key authentication for testing purposes!** 
     Your account name and account key, which give full read/write access to the associated Storage account, 
@@ -65,7 +65,7 @@ public class ImageManager {
         return container;
     }
 
-    public static String UploadImage(InputStream image, int imageLength, String fileName, String contentType) throws Exception {
+    public static String UploadFile(InputStream image, int imageLength, String fileName, String contentType) throws Exception {
 
         CloudBlobContainer container = getContainer();
         container.createIfNotExists();
@@ -74,7 +74,7 @@ public class ImageManager {
         permissions.setPublicAccess(BlobContainerPublicAccessType.CONTAINER);
         container.uploadPermissions(permissions);
 
-        String imageName = fileName; //randomString(10);
+        String imageName = fileName; 
         CloudBlockBlob imageBlob = container.getBlockBlobReference(imageName);
         imageBlob.getProperties().setContentType(contentType);
         imageBlob.upload(image, imageLength);
@@ -108,16 +108,6 @@ public class ImageManager {
 
             blob.download(imageStream);
         }
-    }
-
-    static final String validChars = "abcdefghijklmnopqrstuvwxyz";
-    static SecureRandom rnd = new SecureRandom();
-
-    static String randomString( int len ){
-        StringBuilder sb = new StringBuilder( len );
-        for( int i = 0; i < len; i++ )
-            sb.append( validChars.charAt( rnd.nextInt(validChars.length()) ) );
-        return sb.toString();
     }
 
 }

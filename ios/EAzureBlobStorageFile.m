@@ -1,4 +1,4 @@
-#import "EAzureBlobStoragFile.h"
+#import "EAzureBlobStorageFile.h"
 #import <AZSClient/AZSClient.h>
 
 NSString *ACCOUNT_NAME = @"account_name";
@@ -11,7 +11,7 @@ static NSString *const _filePath = @"filePath";
 static NSString *const _contentType = @"contentType";
 static NSString *const _fileName = @"fileName";
 
-@implementation EAzureBlobStoragFile
+@implementation EAzureBlobStorageFile
 
 
 RCT_EXPORT_MODULE();
@@ -73,13 +73,16 @@ RCT_EXPORT_METHOD(uploadFile:(NSDictionary *)options
                 // Create a local blob object
                 AZSCloudBlockBlob *blockBlob = [blobContainer blockBlobReferenceFromName:fileName];
                 blockBlob.properties.contentType = contentType;
-                [blockBlob uploadFromFileWithPath:filePath  completionHandler:^(NSError * error) {
+                
+                [blockBlob uploadFromFileWithURL:[NSURL URLWithString:filePath] completionHandler:^(NSError * error) {
                     if (error){
                         reject(@"no_event",[NSString stringWithFormat: @"Error in creating blob. %@",filePath],error);
                     }else{
                         resolve(fileName);
-                    }
+                    }       
                 }];
+                
+             
             }
         }];
 }
