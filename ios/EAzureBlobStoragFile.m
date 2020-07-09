@@ -13,23 +13,17 @@ static NSString *const _fileName = @"fileName";
 
 @implementation EAzureBlobStoragFile
 
-
+// To export a module named CalendarManager
 RCT_EXPORT_MODULE();
+
+// This would name the module AwesomeCalendarManager instead
+// RCT_EXPORT_MODULE(AwesomeCalendarManager);
 
 RCT_EXPORT_METHOD(uploadFile:(NSDictionary *)options
                  findEventsWithResolver:(RCTPromiseResolveBlock)resolve
                  rejecter:(RCTPromiseRejectBlock)reject)
 {
     [self uploadBlobToContainer: options rejecter:reject resolver:resolve];
-}
-
--(NSString *)genRandStringLength:(int)len {
-    static NSString *letters = @"abcdefghijklmnopqrstuvwxyz";
-    NSMutableString *randomString = [NSMutableString stringWithCapacity: len];
-    for (int i=0; i<len; i++) {
-        [randomString appendFormat: @"%C", [letters characterAtIndex: arc4random() % [letters length]]];
-    }
-    return randomString;
 }
 
 -(void)uploadBlobToContainer:(NSDictionary *)options rejecter:(RCTPromiseRejectBlock)reject resolver:(RCTPromiseResolveBlock)resolve{

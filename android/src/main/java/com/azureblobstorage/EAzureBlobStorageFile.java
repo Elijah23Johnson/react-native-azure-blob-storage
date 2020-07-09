@@ -38,9 +38,6 @@ public class EAzureBlobStorageFile extends ReactContextBaseJavaModule{
     @ReactMethod
     public void uploadFile(ReadableMap options, final Promise promise){
 
-        System.out.println("CAll upload func");
-        System.out.println(options);
-
         final String name = options.hasKey("fileName") ? options.getString("fileName") : null;
         String filePath = options.hasKey("filePath") ? options.getString("filePath") : null;
         final String contentType = options.hasKey("contentType") ? options.getString("contentType") : null;
@@ -57,7 +54,7 @@ public class EAzureBlobStorageFile extends ReactContextBaseJavaModule{
 
                     try {
 
-                        final String imageName = ImageManager.UploadImage(imageStream, imageLength,name, contentType );
+                        final String imageName = FileManager.UploadFile(imageStream, imageLength,name, contentType );
 
 
                         handler.post(new Runnable() {
