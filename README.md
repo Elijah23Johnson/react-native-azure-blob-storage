@@ -11,7 +11,7 @@
 ## Usage
 ```javascript
 import React, { Component } from 'react';
-import { Button, StyleSheet, ScrollView, View, Image, TouchableOpacity } from 'react-native';
+import { Button, StyleSheet, ScrollView, View, Image, TouchableOpacity, Platform } from 'react-native';
 import { EAzureBlobStorageImage } from 'react-native-azure-blob-storage';
 import CameraRoll from "@react-native-community/cameraroll";
 
@@ -46,9 +46,16 @@ import CameraRoll from "@react-native-community/cameraroll";
           {this.state.photos.map((p, i) => {
             return (
               <TouchableOpacity
-                onPress={async () => {
-                  var name = await EAzureBlobStorageImage.uploadFile(p.node.image.uri)
-                  console.log("Container File Name", name)
+                onPress={ () => {
+                   EAzureBlobStorageFile.uploadFile({
+                              "filePath":Platform.OS === 'android'?filePath:'file://' + filePath,
+                              "contentType":"audio/wav",
+                              "fileName":"test.wav"
+                            }).then((name) => {  
+                              console.log('File Name  ' + name);  
+                            }).catch((error) => {  
+                                console.log('Error' + error); 
+                            }); 
                 }}
               >
                 <Image
