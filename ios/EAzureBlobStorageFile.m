@@ -1,4 +1,4 @@
-#import "EAzureBlobStoragFile.h"
+#import "EAzureBlobStorageFile.h"
 #import <AZSClient/AZSClient.h>
 
 NSString *ACCOUNT_NAME = @"account_name";
@@ -11,19 +11,25 @@ static NSString *const _filePath = @"filePath";
 static NSString *const _contentType = @"contentType";
 static NSString *const _fileName = @"fileName";
 
-@implementation EAzureBlobStoragFile
+@implementation EAzureBlobStorageFile
 
-// To export a module named CalendarManager
+
 RCT_EXPORT_MODULE();
-
-// This would name the module AwesomeCalendarManager instead
-// RCT_EXPORT_MODULE(AwesomeCalendarManager);
 
 RCT_EXPORT_METHOD(uploadFile:(NSDictionary *)options
                  findEventsWithResolver:(RCTPromiseResolveBlock)resolve
                  rejecter:(RCTPromiseRejectBlock)reject)
 {
     [self uploadBlobToContainer: options rejecter:reject resolver:resolve];
+}
+
+-(NSString *)genRandStringLength:(int)len {
+    static NSString *letters = @"abcdefghijklmnopqrstuvwxyz";
+    NSMutableString *randomString = [NSMutableString stringWithCapacity: len];
+    for (int i=0; i<len; i++) {
+        [randomString appendFormat: @"%C", [letters characterAtIndex: arc4random() % [letters length]]];
+    }
+    return randomString;
 }
 
 -(void)uploadBlobToContainer:(NSDictionary *)options rejecter:(RCTPromiseRejectBlock)reject resolver:(RCTPromiseResolveBlock)resolve{
@@ -67,13 +73,16 @@ RCT_EXPORT_METHOD(uploadFile:(NSDictionary *)options
                 // Create a local blob object
                 AZSCloudBlockBlob *blockBlob = [blobContainer blockBlobReferenceFromName:fileName];
                 blockBlob.properties.contentType = contentType;
-                [blockBlob uploadFromFileWithPath:filePath  completionHandler:^(NSError * error) {
+                
+                [blockBlob uploadFromFileWithURL:[NSURL URLWithString:filePath] completionHandler:^(NSError * error) {
                     if (error){
                         reject(@"no_event",[NSString stringWithFormat: @"Error in creating blob. %@",filePath],error);
                     }else{
                         resolve(fileName);
-                    }
+                    }       
                 }];
+                
+             
             }
         }];
 }
