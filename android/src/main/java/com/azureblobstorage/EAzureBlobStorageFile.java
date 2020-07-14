@@ -17,7 +17,7 @@ import java.io.InputStream;
 
 public class EAzureBlobStorageFile extends ReactContextBaseJavaModule{
     private static final String E_LAYOUT_ERROR = "E_LAYOUT_ERROR";
-    private static final String MODULE_NAME = "EAzureBlobStorageImage";
+    private static final String MODULE_NAME = "EAzureBlobStorageFile";
 
     public static String ACCOUNT_NAME = "";
     public static String ACCOUNT_KEY = "";
