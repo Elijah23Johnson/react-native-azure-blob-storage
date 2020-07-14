@@ -71,7 +71,6 @@ public class FileManager {
         container.createIfNotExists();
 
         BlobContainerPermissions permissions = container.downloadPermissions();
-        permissions.setPublicAccess(BlobContainerPublicAccessType.CONTAINER);
         container.uploadPermissions(permissions);
 
         String imageName = fileName; 
