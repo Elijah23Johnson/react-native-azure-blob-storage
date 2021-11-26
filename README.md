@@ -12,7 +12,7 @@
 ```javascript
 import React, { Component } from 'react';
 import { Button, StyleSheet, ScrollView, View, Image, TouchableOpacity, Platform } from 'react-native';
-import { EAzureBlobStorageImage } from 'react-native-azure-blob-storage';
+import { EAzureBlobStorageFile } from 'react-native-azure-blob-storage';
 import CameraRoll from "@react-native-community/cameraroll";
 
  class App extends Component {
@@ -20,7 +20,7 @@ import CameraRoll from "@react-native-community/cameraroll";
     photos: []
   }
   async componentDidMount() {
-    EAzureBlobStorageImage.configure(
+    EAzureBlobStorageFile.configure(
       "Account Name", //Account Name
       "Account Key", //Account Key
       "images" //Container Name
