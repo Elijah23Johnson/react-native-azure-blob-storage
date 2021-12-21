@@ -73,8 +73,32 @@ public class FileManager {
         BlobContainerPermissions permissions = container.downloadPermissions();
         container.uploadPermissions(permissions);
 
-        String imageName = fileName; 
-        CloudBlockBlob imageBlob = container.getBlockBlobReference(imageName);
+        CloudBlockBlob imageBlob = container.getBlockBlobReference(fileName);
+        imageBlob.getProperties().setContentType(contentType);
+        imageBlob.upload(image, imageLength);
+
+        return imageName;
+
+    }
+
+    public static String UploadFileSas(InputStream image, int imageLength, String fileName, String contentType) throws Exception {
+
+        CloudBlobContainer container = getContainer();
+        container.createIfNotExists();
+
+        BlobContainerPermissions permissions = container.downloadPermissions();
+        container.uploadPermissions(permissions);
+
+        SharedAccessBlobPolicy sasPolicy = new SharedAccessBlobPolicy();
+        GregorianCalendar calendar = new GregorianCalendar(TimeZone.getTimeZone("UTC"));
+        calendar.add(Calendar.HOUR, 10);
+        sasPolicy.setSharedAccessExpiryTime(calendar.getTime());
+
+        sasPolicy.setPermissions(EnumSet.of(SharedAccessBlobPermissions.READ,
+                SharedAccessBlobPermissions.WRITE,
+                SharedAccessBlobPermissions.LIST));
+
+        CloudBlockBlob imageBlob = container.getBlockBlobReference(fileName);
         imageBlob.getProperties().setContentType(contentType);
         imageBlob.upload(image, imageLength);
 

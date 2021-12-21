@@ -23,7 +23,8 @@ import CameraRoll from "@react-native-community/cameraroll";
     EAzureBlobStorageFile.configure(
       "Account Name", //Account Name
       "Account Key", //Account Key
-      "images" //Container Name
+      "images", //Container Name
+       false //SAS Token 
     );
   }
   _handleButtonPress = () => {
@@ -81,6 +82,6 @@ import CameraRoll from "@react-native-community/cameraroll";
 Ios requires a relative path Android Will work with either 
 EAzureBlobStorageImage.uploadFile('/Route To Image.PNG'')
 
-```
+```np
 
 

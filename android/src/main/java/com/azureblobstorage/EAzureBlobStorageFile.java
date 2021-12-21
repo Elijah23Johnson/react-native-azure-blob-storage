@@ -22,6 +22,8 @@ public class EAzureBlobStorageFile extends ReactContextBaseJavaModule{
     public static String ACCOUNT_NAME = "";
     public static String ACCOUNT_KEY = "";
     public static String CONTAINER_NAME = "";
+    public static boolean SAS = false;
+
     private Context ctx;
 
     public EAzureBlobStorageFile(@NonNull ReactApplicationContext reactContext) {
@@ -54,7 +56,7 @@ public class EAzureBlobStorageFile extends ReactContextBaseJavaModule{
 
                     try {
 
-                        final String imageName = FileManager.UploadFile(imageStream, imageLength,name, contentType );
+                        final String imageName = this.SAS ?  FileManager.UploadFileSas(imageStream, imageLength,name, contentType ) : FileManager.UploadFile(imageStream, imageLength,name, contentType );
 
 
                         handler.post(new Runnable() {
@@ -84,9 +86,10 @@ public class EAzureBlobStorageFile extends ReactContextBaseJavaModule{
     }
 
     @ReactMethod
-    public void configure(String account_name, String account_key, String constainer_name ){
+    public void configure(String account_name, String account_key, String constainer_name, boolean sas_token ){
         this.ACCOUNT_NAME = account_name;
         this.ACCOUNT_KEY = account_key;
         this.CONTAINER_NAME = constainer_name;
+        this.SAS = sas_token;
     }
 }
