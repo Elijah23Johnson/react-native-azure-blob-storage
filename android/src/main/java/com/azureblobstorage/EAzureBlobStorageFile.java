@@ -1,4 +1,3 @@
-
 package com.azureblobstorage;
 import androidx.annotation.NonNull;
 
@@ -52,11 +51,12 @@ public class EAzureBlobStorageFile extends ReactContextBaseJavaModule{
             final Handler handler = new Handler();
 
             Thread th = new Thread(new Runnable() {
+
                 public void run() {
 
                     try {
 
-                        final String imageName = this.SAS ?  FileManager.UploadFileSas(imageStream, imageLength,name, contentType ) : FileManager.UploadFile(imageStream, imageLength,name, contentType );
+                        final String imageName = EAzureBlobStorageFile.SAS ?  FileManager.UploadFileSas(imageStream, imageLength,name, contentType ) : FileManager.UploadFile(imageStream, imageLength,name, contentType );
 
 
                         handler.post(new Runnable() {

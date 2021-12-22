@@ -7,7 +7,7 @@
 * EITHER EXPRESSED OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE IMPLIED WARRANTIES 
 * OF MERCHANTABILITY AND/OR FITNESS FOR A PARTICULAR PURPOSE.
 *----------------------------------------------------------------------------------
-* The example companies, organizations, products, domain names,	
+* The example companies, organizations, products, domain names,    
 * e-mail addresses, logos, people, places, and events depicted
 * herein are fictitious.  No association with any real company,
 * organization, product, domain name, email address, logo, person,
@@ -24,12 +24,18 @@ import com.microsoft.azure.storage.blob.CloudBlobClient;
 import com.microsoft.azure.storage.blob.CloudBlobContainer;
 import com.microsoft.azure.storage.blob.CloudBlockBlob;
 import com.microsoft.azure.storage.blob.ListBlobItem;
+import com.microsoft.azure.storage.blob.SharedAccessBlobPermissions;
+import com.microsoft.azure.storage.blob.SharedAccessBlobPolicy;
 
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.security.SecureRandom;
+import java.util.Calendar;
+import java.util.EnumSet;
+import java.util.GregorianCalendar;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.TimeZone;
 
 public class FileManager {
     /*
@@ -77,7 +83,7 @@ public class FileManager {
         imageBlob.getProperties().setContentType(contentType);
         imageBlob.upload(image, imageLength);
 
-        return imageName;
+        return fileName;
 
     }
 
@@ -102,7 +108,7 @@ public class FileManager {
         imageBlob.getProperties().setContentType(contentType);
         imageBlob.upload(image, imageLength);
 
-        return imageName;
+        return fileName;
 
     }
 
