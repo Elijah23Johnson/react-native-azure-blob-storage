@@ -1,7 +1,7 @@
 {
   "name": "react-native-azure-blob-storage",
   "title": "React Native Azure Blob Storage",
-  "version": "1.2.4",
+  "version": "2.0.1",
   "description": "Performing operations on content in Azure Blob Storage",
   "main": "index.js",
   "scripts": {
@@ -24,7 +24,7 @@
   "licenseFilename": "LICENSE",
   "readmeFilename": "README.md",
   "peerDependencies": {
-    "react": "^16.8.1",
+    "react": "^17.0.1",
     "react-native": ">=0.59.0-rc.0 <1.0.x"
   },
   "devDependencies": {
