@@ -5,7 +5,7 @@ NSString *ACCOUNT_NAME = @"account_name";
 NSString *ACCOUNT_KEY = @"account_key";
 NSString *CONTAINER_NAME = @"container_name";
 NSString *CONNECTION_STRING = @"";
-bool *SAS = false;
+BOOL *SAS = false;
 static NSString *const _filePath = @"filePath";
 static NSString *const _contentType = @"contentType";
 static NSString *const _fileName = @"fileName";
@@ -117,7 +117,7 @@ RCT_EXPORT_METHOD(uploadFile:(NSDictionary *)options
 RCT_EXPORT_METHOD(configure:(NSString *)account_name
          key:(NSString *)account_key
          container:(NSString *)conatiner_name
-         token:(bool *)sas_token)
+         token:(BOOL *)sas_token)
 {
   ACCOUNT_NAME = account_name;
   ACCOUNT_KEY = account_key;
